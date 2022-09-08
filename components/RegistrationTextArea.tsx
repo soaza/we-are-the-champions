@@ -8,7 +8,6 @@ export const RegistrationTextArea = () => {
 
   const handleSubmit = async () => {
     const teams = parseRegisterTeamsInput(input);
-    console.log(teams);
     await supabase.from("teams").insert(teams);
   };
 
