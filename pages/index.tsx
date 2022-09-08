@@ -2,6 +2,7 @@ import { Button } from "@mantine/core";
 import type { NextPage } from "next";
 import { MatchResultsTextArea } from "../components/MatchResultsTextArea";
 import { RegistrationTextArea } from "../components/RegistrationTextArea";
+import { ResetButton } from "../components/ResetButton";
 import { SymbolTooltip } from "../components/SymbolTooltip";
 import { TeamsTable } from "../components/TeamsTable";
 
@@ -28,9 +29,7 @@ const Home: NextPage = () => {
 
       <SymbolTooltip />
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button style={{ marginTop: 10 }}>Reset Data</Button>
-      </div>
+      <ResetButton />
 
       <div style={{}}>
         <RegistrationTextArea />
