@@ -1,8 +1,16 @@
 import { Button, Textarea } from "@mantine/core";
 import React, { useState } from "react";
+import { supabase } from "../common/supabase";
+import { parseRegisterTeamsInput } from "../utils/registerTeams";
 
 export const RegistrationTextArea = () => {
   const [input, setInput] = useState("");
+
+  const handleSubmit = async () => {
+    const teams = parseRegisterTeamsInput(input);
+    console.log(teams);
+    await supabase.from("teams").insert(teams);
+  };
 
   return (
     <>
@@ -14,7 +22,10 @@ export const RegistrationTextArea = () => {
         onChange={(e) => setInput(e.target.value)}
       />
 
-      <Button style={{ marginTop: 10 }}> Register Teams</Button>
+      <Button onClick={handleSubmit} style={{ marginTop: 10 }}>
+        {" "}
+        Register Teams
+      </Button>
     </>
   );
 };

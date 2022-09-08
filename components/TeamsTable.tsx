@@ -5,7 +5,7 @@ const teams: ITeam[] = [
   {
     team_name: "firstTeam",
     registration_date: new Date(),
-    group_number: 1,
+    group_number: "1",
     goals_scored: 10,
     match_points: 30,
     alternate_match_points: 50,
@@ -13,7 +13,7 @@ const teams: ITeam[] = [
   {
     team_name: "secondTeam",
     registration_date: new Date(),
-    group_number: 1,
+    group_number: "1",
     goals_scored: 10,
     match_points: 30,
     alternate_match_points: 5,
@@ -21,7 +21,7 @@ const teams: ITeam[] = [
   {
     team_name: "thirdTeam",
     registration_date: new Date(),
-    group_number: 1,
+    group_number: "1",
     goals_scored: 10,
     match_points: 30,
     alternate_match_points: 5,
@@ -29,7 +29,7 @@ const teams: ITeam[] = [
   {
     team_name: "fourthTeam",
     registration_date: new Date(),
-    group_number: 1,
+    group_number: "1",
     goals_scored: 10,
     match_points: 30,
     alternate_match_points: 5,
@@ -37,7 +37,7 @@ const teams: ITeam[] = [
   {
     team_name: "fifthTeam",
     registration_date: new Date(),
-    group_number: 1,
+    group_number: "1",
     goals_scored: 10,
     match_points: 30,
     alternate_match_points: 5,
