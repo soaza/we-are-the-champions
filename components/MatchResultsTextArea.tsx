@@ -1,6 +1,7 @@
 import { Textarea, Button } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import React, { useState } from "react";
-import { supabase } from "../common/supabase";
+import { updateTeam } from "../pages/api/supabase.api";
 import { parseMatchResultsInput } from "../utils/matchResults";
 
 export const MatchResultsTextArea = () => {
@@ -9,25 +10,14 @@ export const MatchResultsTextArea = () => {
   const handleSubmit = () => {
     const results = parseMatchResultsInput(input);
 
-    results.forEach(async (value: any, key: string) => {
-      if (!key) {
-        return;
-      }
-      const { data: team } = await supabase
-        .from("teams")
-        .select()
-        .eq("team_name", key)
-        .single();
+    results.forEach(updateTeam);
 
-      await supabase
-        .from("teams")
-        .update({
-          goals_scored: team.goals_scored + value.goals_scored,
-          match_points: team.match_points + value.match_points,
-          alternate_match_points:
-            team.alternate_match_points + value.alternate_match_points,
-        })
-        .match({ team_name: key });
+    showNotification({
+      color: "green",
+      id: "load-data",
+      message: "Match Results updated!",
+      autoClose: 1000,
+      disallowClose: true,
     });
   };
 

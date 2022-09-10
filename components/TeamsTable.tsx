@@ -1,4 +1,5 @@
 import { Table } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { ITeam } from "../common/interfaces";
 
 const teams: ITeam[] = [
@@ -45,7 +46,13 @@ const teams: ITeam[] = [
 ];
 
 export const TeamsTable = () => {
-  const rows = teams.map((team, index) => (
+  const [displayedTeams, setDisplayedTeams] = useState<ITeam[]>([]);
+
+  useEffect(() => {
+    setDisplayedTeams(teams);
+  }, []);
+
+  const rows = displayedTeams.map((team, index) => (
     <tr
       style={{ backgroundColor: index + 1 <= 4 ? "#b9fc9a" : "" }}
       key={team.team_name}

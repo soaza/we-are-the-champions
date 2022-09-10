@@ -1,9 +1,4 @@
-import { ITeam } from "../common/interfaces";
-
-type TTeamField = Pick<
-  ITeam,
-  "team_name" | "registration_date" | "group_number"
->;
+import { TTeamField } from "../common/interfaces";
 
 export const parseRegisterTeamsInput: (input: string) => TTeamField[] = (
   input: string

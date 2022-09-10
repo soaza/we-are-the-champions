@@ -2,7 +2,7 @@ export const parseMatchResultsInput = (input: string) => {
   const results = input.split("\n");
   const teamMap = new Map();
 
-  const resultsArr = results.forEach((result) => {
+  results.forEach((result) => {
     const fields = result.split(" ");
     const [firstTeam, secondTeam, firstTeamScore, secondTeamScore] = fields;
     teamMap.set(

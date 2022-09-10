@@ -1,6 +1,7 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -23,7 +24,9 @@ export default function App(props: AppProps) {
           colorScheme: "light",
         }}
       >
-        <Component {...pageProps} />
+        <NotificationsProvider position="top-center" zIndex={2077}>
+          <Component {...pageProps} />
+        </NotificationsProvider>
       </MantineProvider>
     </>
   );

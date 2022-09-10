@@ -1,6 +1,7 @@
 import { Button, Textarea } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import React, { useState } from "react";
-import { supabase } from "../common/supabase";
+import { insertTeams } from "../pages/api/supabase.api";
 import { parseRegisterTeamsInput } from "../utils/registerTeams";
 
 export const RegistrationTextArea = () => {
@@ -8,7 +9,15 @@ export const RegistrationTextArea = () => {
 
   const handleSubmit = async () => {
     const teams = parseRegisterTeamsInput(input);
-    await supabase.from("teams").insert(teams);
+    await insertTeams(teams);
+
+    showNotification({
+      color: "green",
+      id: "load-data",
+      message: "Teams Registered!",
+      autoClose: 1000,
+      disallowClose: true,
+    });
   };
 
   return (
