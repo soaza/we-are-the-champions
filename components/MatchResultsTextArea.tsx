@@ -35,6 +35,7 @@ export const MatchResultsTextArea = () => {
   return (
     <>
       <Textarea
+        value={input}
         style={{ marginTop: 20 }}
         placeholder="<Team Name> <Registration date in DD/MM> <Group number>"
         label="Enter Match Results"

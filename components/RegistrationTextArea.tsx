@@ -30,6 +30,7 @@ export const RegistrationTextArea = () => {
   return (
     <>
       <Textarea
+        value={input}
         placeholder="<Team Name> <Registration date in DD/MM> <Group number>"
         label="Register Teams"
         radius="md"
