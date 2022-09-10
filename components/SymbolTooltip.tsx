@@ -19,7 +19,7 @@ export const SymbolTooltip = () => {
           marginRight: 5,
         }}
       />
-      <i> represents "Qualifed for next round"</i>
+      <i> {`represents "Qualifed for next round"`}</i>
     </div>
   );
 };
