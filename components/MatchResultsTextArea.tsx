@@ -1,23 +1,33 @@
 import { Textarea, Button } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { updateTeam } from "../pages/api/supabase.api";
+import { UserContext } from "../pages/_app";
 import { parseMatchResultsInput } from "../utils/matchResults";
 
 export const MatchResultsTextArea = () => {
   const [input, setInput] = useState("");
+  const { setRefetchData } = useContext(UserContext);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const results = parseMatchResultsInput(input);
 
-    results.forEach(updateTeam);
+    await Promise.all(
+      Array.from(results)
+        .map(([key, value]) => ({ key, value }))
+        .map(async ({ value, key }) => {
+          await updateTeam(value, key);
+        })
+    ).then(() => {
+      showNotification({
+        color: "green",
+        id: "load-data",
+        message: "Match Results updated!",
+        autoClose: 1000,
+        disallowClose: true,
+      });
 
-    showNotification({
-      color: "green",
-      id: "load-data",
-      message: "Match Results updated!",
-      autoClose: 1000,
-      disallowClose: true,
+      setRefetchData(true);
     });
   };
 

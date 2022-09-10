@@ -1,9 +1,12 @@
 import { Button } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import React from "react";
+import React, { useContext } from "react";
 import { resetTeams } from "../pages/api/supabase.api";
+import { UserContext } from "../pages/_app";
 
 export const ResetButton = () => {
+  const { setRefetchData } = useContext(UserContext);
+
   const handleResetTeams = async () => {
     await resetTeams();
 
@@ -14,6 +17,8 @@ export const ResetButton = () => {
       autoClose: 1000,
       disallowClose: true,
     });
+
+    setRefetchData(true);
   };
 
   return (

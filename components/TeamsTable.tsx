@@ -1,56 +1,15 @@
 import { Table } from "@mantine/core";
-import { group } from "console";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ITeam } from "../common/interfaces";
 import { getTeams } from "../pages/api/supabase.api";
-
-const teams: ITeam[] = [
-  {
-    team_name: "firstTeam",
-    registration_date: new Date(),
-    group_number: "1",
-    goals_scored: 10,
-    match_points: 30,
-    alternate_match_points: 50,
-  },
-  {
-    team_name: "secondTeam",
-    registration_date: new Date(),
-    group_number: "1",
-    goals_scored: 10,
-    match_points: 30,
-    alternate_match_points: 5,
-  },
-  {
-    team_name: "thirdTeam",
-    registration_date: new Date(),
-    group_number: "1",
-    goals_scored: 10,
-    match_points: 30,
-    alternate_match_points: 5,
-  },
-  {
-    team_name: "fourthTeam",
-    registration_date: new Date(),
-    group_number: "1",
-    goals_scored: 10,
-    match_points: 30,
-    alternate_match_points: 5,
-  },
-  {
-    team_name: "fifthTeam",
-    registration_date: new Date(),
-    group_number: "1",
-    goals_scored: 10,
-    match_points: 30,
-    alternate_match_points: 5,
-  },
-];
+import { UserContext } from "../pages/_app";
 
 export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
   const { groupNumber } = props;
 
   const [displayedTeams, setDisplayedTeams] = useState<ITeam[]>([]);
+
+  const { refetchData, setRefetchData } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -85,8 +44,11 @@ export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
       setDisplayedTeams(teams);
     };
 
-    fetchTeams();
-  }, []);
+    if (refetchData) {
+      fetchTeams();
+      setRefetchData(false);
+    }
+  }, [refetchData]);
 
   const rows = displayedTeams.map((team, index) => (
     <tr

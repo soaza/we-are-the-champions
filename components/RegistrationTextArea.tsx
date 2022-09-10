@@ -1,11 +1,13 @@
 import { Button, Textarea } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { insertTeams } from "../pages/api/supabase.api";
+import { UserContext } from "../pages/_app";
 import { parseRegisterTeamsInput } from "../utils/registerTeams";
 
 export const RegistrationTextArea = () => {
   const [input, setInput] = useState("");
+  const { setRefetchData } = useContext(UserContext);
 
   const handleSubmit = async () => {
     const teams = parseRegisterTeamsInput(input);
@@ -18,6 +20,8 @@ export const RegistrationTextArea = () => {
       autoClose: 1000,
       disallowClose: true,
     });
+
+    setRefetchData(true);
   };
 
   return (
