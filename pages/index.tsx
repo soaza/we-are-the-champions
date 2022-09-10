@@ -19,11 +19,11 @@ const Home: NextPage = () => {
         }}
       >
         <div style={{ width: "45%" }}>
-          <TeamsTable />
+          <TeamsTable groupNumber={1} />
         </div>
 
         <div style={{ width: "45%" }}>
-          <TeamsTable />
+          <TeamsTable groupNumber={2} />
         </div>
       </div>
 

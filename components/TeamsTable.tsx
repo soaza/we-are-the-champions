@@ -1,6 +1,8 @@
 import { Table } from "@mantine/core";
+import { group } from "console";
 import { useEffect, useState } from "react";
 import { ITeam } from "../common/interfaces";
+import { getTeams } from "../pages/api/supabase.api";
 
 const teams: ITeam[] = [
   {
@@ -45,11 +47,45 @@ const teams: ITeam[] = [
   },
 ];
 
-export const TeamsTable = () => {
+export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
+  const { groupNumber } = props;
+
   const [displayedTeams, setDisplayedTeams] = useState<ITeam[]>([]);
 
   useEffect(() => {
-    setDisplayedTeams(teams);
+    const fetchTeams = async () => {
+      const teams = await getTeams(groupNumber);
+
+      teams
+        .sort((teamOne, teamTwo) => {
+          var matchPointCompare = teamOne.match_points - teamTwo.match_points;
+
+          if (matchPointCompare !== 0) {
+            return matchPointCompare;
+          }
+
+          var totalGoalsCompare = teamOne.goals_scored - teamTwo.goals_scored;
+          if (totalGoalsCompare !== 0) {
+            return totalGoalsCompare;
+          }
+          var highestAlternateMatchPointsCompare =
+            teamOne.alternate_match_points - teamTwo.alternate_match_points;
+
+          if (highestAlternateMatchPointsCompare !== 0) {
+            return highestAlternateMatchPointsCompare;
+          }
+
+          return new Date(teamOne.registration_date) <
+            new Date(teamTwo.registration_date)
+            ? 1
+            : -1;
+        })
+        .reverse();
+
+      setDisplayedTeams(teams);
+    };
+
+    fetchTeams();
   }, []);
 
   const rows = displayedTeams.map((team, index) => (
@@ -74,7 +110,7 @@ export const TeamsTable = () => {
         border: "1px solid #b0b6bf",
       }}
     >
-      <caption>Team 1</caption>
+      <caption>Group {groupNumber}</caption>
 
       <thead>
         <tr>

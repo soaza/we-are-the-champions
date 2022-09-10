@@ -1,4 +1,4 @@
-import { TTeamField } from "../../common/interfaces";
+import { ITeam, TTeamField } from "../../common/interfaces";
 import { supabase } from "../../common/supabase";
 
 export const insertTeams = async (teams: TTeamField[]) => {
@@ -28,4 +28,13 @@ export const updateTeam = async (value: any, key: string) => {
 
 export const resetTeams = async () => {
   await supabase.from("teams").delete().neq("id", 0);
+};
+
+export const getTeams = async (groupNumber: number): Promise<ITeam[]> => {
+  const { data: teams } = await supabase
+    .from("teams")
+    .select()
+    .eq("group_number", groupNumber);
+
+  return teams as ITeam[];
 };
