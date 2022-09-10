@@ -4,6 +4,7 @@ import { ITeam } from "../common/interfaces";
 import { getTeams } from "../pages/api/supabase.api";
 import { UserContext } from "../pages/_app";
 import { sortTeams } from "../utils/teamSorter";
+import { SymbolTooltip } from "./SymbolTooltip";
 
 export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
   const { groupNumber } = props;
@@ -45,27 +46,32 @@ export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
   }
 
   return (
-    <Table
-      captionSide="bottom"
-      style={{
-        backgroundColor: "white",
-        border: "1px solid #b0b6bf",
-      }}
-    >
-      <caption>Group {groupNumber}</caption>
+    <>
+      <Table
+        captionSide="bottom"
+        style={{
+          backgroundColor: "white",
+          border: "1px solid #b0b6bf",
+          marginTop: 20,
+        }}
+      >
+        <caption>Group {groupNumber}</caption>
 
-      <thead>
-        <tr>
-          <th>Position</th>
-          <th>Team Name</th>
-          <th>Match Points</th>
-          <th>Goals Scored</th>
-          <th>Alternate Match Points</th>
-          <th>Registration Date</th>
-        </tr>
-      </thead>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Team Name</th>
+            <th>Match Points</th>
+            <th>Goals Scored</th>
+            <th>Alternate Match Points</th>
+            <th>Registration Date</th>
+          </tr>
+        </thead>
 
-      <tbody>{rows}</tbody>
-    </Table>
+        <tbody>{rows}</tbody>
+      </Table>
+
+      <SymbolTooltip />
+    </>
   );
 };

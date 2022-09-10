@@ -1,9 +1,7 @@
-import { Button } from "@mantine/core";
 import type { NextPage } from "next";
 import { MatchResultsTextArea } from "../components/MatchResultsTextArea";
 import { RegistrationTextArea } from "../components/RegistrationTextArea";
 import { ResetButton } from "../components/ResetButton";
-import { SymbolTooltip } from "../components/SymbolTooltip";
 import { TeamsTable } from "../components/TeamsTable";
 
 const Home: NextPage = () => {
@@ -26,8 +24,6 @@ const Home: NextPage = () => {
           <TeamsTable groupNumber={2} />
         </div>
       </div>
-
-      <SymbolTooltip />
 
       <ResetButton />
 
