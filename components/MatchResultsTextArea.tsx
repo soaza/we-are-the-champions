@@ -28,6 +28,7 @@ export const MatchResultsTextArea = () => {
       });
 
       setRefetchData(true);
+      setInput("");
     });
   };
 
@@ -40,6 +41,7 @@ export const MatchResultsTextArea = () => {
         radius="md"
         size="lg"
         onChange={(e) => setInput(e.target.value)}
+        autosize
       />
 
       <Button onClick={handleSubmit} style={{ marginTop: 10 }}>

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { ITeam } from "../common/interfaces";
 import { getTeams } from "../pages/api/supabase.api";
 import { UserContext } from "../pages/_app";
+import { sortTeams } from "../utils/teamSorter";
 
 export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
   const { groupNumber } = props;
@@ -15,32 +16,7 @@ export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
     const fetchTeams = async () => {
       const teams = await getTeams(groupNumber);
 
-      teams
-        .sort((teamOne, teamTwo) => {
-          var matchPointCompare = teamOne.match_points - teamTwo.match_points;
-
-          if (matchPointCompare !== 0) {
-            return matchPointCompare;
-          }
-
-          var totalGoalsCompare = teamOne.goals_scored - teamTwo.goals_scored;
-          if (totalGoalsCompare !== 0) {
-            return totalGoalsCompare;
-          }
-          var highestAlternateMatchPointsCompare =
-            teamOne.alternate_match_points - teamTwo.alternate_match_points;
-
-          if (highestAlternateMatchPointsCompare !== 0) {
-            return highestAlternateMatchPointsCompare;
-          }
-
-          return new Date(teamOne.registration_date) <
-            new Date(teamTwo.registration_date)
-            ? 1
-            : -1;
-        })
-        .reverse();
-
+      sortTeams(teams);
       setDisplayedTeams(teams);
     };
 
@@ -57,12 +33,16 @@ export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
     >
       <td>{index + 1}</td>
       <td>{team.team_name}</td>
-      <td>{team.registration_date.toString()}</td>
-      <td>{team.goals_scored}</td>
       <td>{team.match_points}</td>
+      <td>{team.goals_scored}</td>
       <td>{team.alternate_match_points}</td>
+      <td>{team.registration_date.toString()}</td>
     </tr>
   ));
+
+  if (displayedTeams.length === 0) {
+    return <div />;
+  }
 
   return (
     <Table
@@ -78,12 +58,13 @@ export const TeamsTable = (props: { groupNumber: 1 | 2 }) => {
         <tr>
           <th>Position</th>
           <th>Team Name</th>
-          <th>Registration Date</th>
-          <th>Goals Scored</th>
           <th>Match Points</th>
+          <th>Goals Scored</th>
           <th>Alternate Match Points</th>
+          <th>Registration Date</th>
         </tr>
       </thead>
+
       <tbody>{rows}</tbody>
     </Table>
   );

@@ -31,7 +31,7 @@ const Home: NextPage = () => {
 
       <ResetButton />
 
-      <div style={{}}>
+      <div>
         <RegistrationTextArea />
 
         <MatchResultsTextArea />

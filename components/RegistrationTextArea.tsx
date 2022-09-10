@@ -9,6 +9,8 @@ export const RegistrationTextArea = () => {
   const [input, setInput] = useState("");
   const { setRefetchData } = useContext(UserContext);
 
+  console.log(input);
+
   const handleSubmit = async () => {
     const teams = parseRegisterTeamsInput(input);
     await insertTeams(teams);
@@ -22,6 +24,7 @@ export const RegistrationTextArea = () => {
     });
 
     setRefetchData(true);
+    setInput("");
   };
 
   return (
@@ -32,6 +35,7 @@ export const RegistrationTextArea = () => {
         radius="md"
         size="lg"
         onChange={(e) => setInput(e.target.value)}
+        autosize
       />
 
       <Button onClick={handleSubmit} style={{ marginTop: 10 }}>
